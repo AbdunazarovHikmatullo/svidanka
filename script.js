@@ -3,6 +3,11 @@ let currentWindow = 0;
 
 const chosenWishes = [];
 let chosenPlace = null;
+let chosenDateTime = null;
+
+// нельзя выбрать дату в прошлом
+const dateInput = document.getElementById('date-input');
+dateInput.min = new Date().toISOString().split('T')[0];
 
 function showWindow(index) {
     if (index >= windows.length) return;
@@ -30,6 +35,20 @@ document.querySelectorAll('.btn-yes').forEach(btn => {
             btn.classList.add('shake');
             setTimeout(() => btn.classList.remove('shake'), 400);
             return;
+        }
+        // окно даты: нужно выбрать день и время
+        if (btn.id === 'datetime-next') {
+            const date = document.getElementById('date-input').value;
+            const time = document.getElementById('time-input').value;
+            if (!date || !time) {
+                btn.classList.add('shake');
+                setTimeout(() => btn.classList.remove('shake'), 400);
+                return;
+            }
+            const formatted = new Date(date).toLocaleDateString('ru-RU', {
+                weekday: 'long', day: 'numeric', month: 'long'
+            });
+            chosenDateTime = formatted + ' в ' + time;
         }
         // окно места: нужно выбрать место
         if (btn.id === 'place-next' && !chosenPlace) {
@@ -101,6 +120,7 @@ function showSummary() {
     const summary = document.getElementById('final-summary');
     const parts = [];
     if (chosenWishes.length) parts.push('В программе: ' + chosenWishes.join(', '));
+    if (chosenDateTime) parts.push('Когда: ' + chosenDateTime);
     if (chosenPlace) parts.push('Место: ' + chosenPlace);
     summary.textContent = parts.join(' • ');
 }
@@ -116,6 +136,7 @@ function sendToTelegram() {
 
     const lines = ['💘 ОНА СКАЗАЛА ДА!'];
     if (chosenWishes.length) lines.push('🍽 Хочет: ' + chosenWishes.join(', '));
+    if (chosenDateTime) lines.push('📅 Когда: ' + chosenDateTime);
     if (chosenPlace) lines.push('📍 Место: ' + chosenPlace);
     lines.push('🕐 ' + new Date().toLocaleString('ru-RU'));
 
