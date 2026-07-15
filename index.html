@@ -80,22 +80,43 @@
     </div>
 
     <!-- Окно 5: когда встретимся -->
-    <div class="window">
+    <div class="window date-window">
         <div class="image-window">
-            <img src="./img/dudu ngambek.jpeg" alt="Когда?">
+            <img src="./img/100роз.jpeg" alt="Когда?">
         </div>
         <div class="text-window">
-            <h1>Когда встретимся? 📅</h1>
+            <h1>Когда встретимся?</h1>
         </div>
-        <div class="datetime-window">
-            <label class="datetime-field">
-                <span>День</span>
-                <input type="date" id="date-input">
-            </label>
-            <label class="datetime-field">
-                <span>Время</span>
-                <input type="time" id="time-input">
-            </label>
+        <div class="ticket">
+            <div class="ticket-header">
+                <span class="ticket-eyebrow">💘 Билет на свидание · ряд обнимательный</span>
+            </div>
+            <div class="ticket-body">
+                <div class="chip-row" id="day-chips">
+                    <button class="chip" data-day="0">Сегодня</button>
+                    <button class="chip" data-day="1">Завтра</button>
+                    <button class="chip" data-day="sat">В субботу</button>
+                </div>
+                <div class="datetime-fields">
+                    <label class="datetime-field">
+                        <span>День</span>
+                        <input type="date" id="date-input">
+                    </label>
+                    <label class="datetime-field">
+                        <span>Время</span>
+                        <input type="time" id="time-input">
+                    </label>
+                </div>
+                <div class="chip-row" id="time-chips">
+                    <button class="chip" data-time="12:00">🌤 12:00</button>
+                    <button class="chip" data-time="17:00">🌇 17:00</button>
+                    <button class="chip" data-time="20:00">🌙 20:00</button>
+                </div>
+            </div>
+            <div class="ticket-tear" aria-hidden="true"></div>
+            <div class="ticket-stub">
+                <span id="ticket-preview">Выбери день и время 👆</span>
+            </div>
         </div>
         <div class="button-window">
             <button class="btn btn-yes" id="datetime-next">В этот день! 🗓</button>

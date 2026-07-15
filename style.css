@@ -166,37 +166,134 @@ button{
     content: " ✅";
 }
 
-/* ===== Окно даты и времени ===== */
-.datetime-window{
+/* ===== Окно даты и времени: билет на свидание ===== */
+.date-window .image-window img{
+    width: min(38vw, 150px); /* билет — главный герой окна, стикер поменьше */
+}
+
+.ticket{
+    width: 100%;
+    max-width: 440px;
+    background-color: #fff0f6;
+    border: 2px solid #f7c9de;
+    border-radius: 22px;
+    overflow: hidden;
+}
+.ticket-header{
+    padding: 12px 16px 0;
+    text-align: center;
+}
+.ticket-eyebrow{
+    display: inline-block;
+    font-size: clamp(0.7rem, 3vw, 0.8rem);
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e0559a;
+}
+.ticket-body{
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    width: 100%;
-    max-width: 400px;
+    gap: 12px;
+    padding: 14px 16px 16px;
+}
+
+.chip-row{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.chip{
+    padding: 8px 14px;
+    font-size: clamp(0.85rem, 3.6vw, 0.95rem);
+    font-weight: bold;
+    color: #b03d78;
+    background-color: #fff;
+    border: 2px solid #f3b8d2;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+.chip:hover{
+    transform: scale(1.06);
+}
+.chip:focus-visible{
+    outline: 3px solid #e0559a;
+    outline-offset: 2px;
+}
+.chip.selected{
+    border-color: #e0559a;
+    background-color: #e0559a;
+    color: #fff;
+}
+
+.datetime-fields{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .datetime-field{
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     font-weight: bold;
-    color: #555;
-    font-size: clamp(0.95rem, 4vw, 1.1rem);
+    color: #b03d78;
+    font-size: clamp(0.8rem, 3.4vw, 0.9rem);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 .datetime-field input{
     width: 100%;
-    padding: 14px;
-    font-size: 1.1rem;
-    border: 3px solid #eee;
-    border-radius: 16px;
-    background-color: #f7f7f7;
-    color: #333;
+    padding: 12px 14px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #4a2338;
+    border: 2px solid #f3b8d2;
+    border-radius: 14px;
+    background-color: #fff;
     appearance: none;
     -webkit-appearance: none;
 }
 .datetime-field input:focus{
     outline: none;
-    border-color: rgb(25, 224, 25);
-    background-color: #e8ffe8;
+    border-color: #e0559a;
+    box-shadow: 0 0 0 3px #f7c9de;
+}
+
+/* отрывная линия с вырезами по краям (вырезы — цвета белой карточки окна) */
+.ticket-tear{
+    position: relative;
+    border-top: 3px dashed #f3b8d2;
+    margin: 0 10px;
+}
+.ticket-tear::before,
+.ticket-tear::after{
+    content: "";
+    position: absolute;
+    top: -12px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #f7c9de;
+}
+.ticket-tear::before{ left: -24px; }
+.ticket-tear::after{ right: -24px; }
+
+.ticket-stub{
+    padding: 14px 16px;
+    text-align: center;
+    font-weight: bold;
+    font-size: clamp(0.95rem, 4vw, 1.15rem);
+    color: #e0559a;
+}
+.ticket-stub .ready{
+    animation: pop 0.3s ease;
+}
+@keyframes pop{
+    from{ transform: scale(0.85); }
+    to{ transform: scale(1); }
 }
 
 /* ===== Окно места: сетка 2x2 ===== */
@@ -272,10 +369,24 @@ button{
     .place-window-grid{
         gap: 20px;
     }
-    .datetime-window{
+    .datetime-fields{
         flex-direction: row;
     }
     .datetime-field{
         flex: 1;
+    }
+    .date-window{
+        height: auto;
+        min-height: 700px;
+        max-height: none;
+        gap: 14px;
+    }
+}
+
+/* ===== Уважение к reduced motion ===== */
+@media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+        animation: none !important;
+        transition: none !important;
     }
 }

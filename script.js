@@ -5,9 +5,74 @@ const chosenWishes = [];
 let chosenPlace = null;
 let chosenDateTime = null;
 
+// дата в формате YYYY-MM-DD по местному времени (toISOString даёт UTC и может ошибиться на день)
+function localISO(d) {
+    return d.getFullYear() + '-' +
+        String(d.getMonth() + 1).padStart(2, '0') + '-' +
+        String(d.getDate()).padStart(2, '0');
+}
+
 // нельзя выбрать дату в прошлом
 const dateInput = document.getElementById('date-input');
-dateInput.min = new Date().toISOString().split('T')[0];
+const timeInput = document.getElementById('time-input');
+dateInput.min = localISO(new Date());
+
+// ---------- Билет: быстрые чипсы и живое превью ----------
+const ticketPreview = document.getElementById('ticket-preview');
+
+function selectChip(chip) {
+    chip.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+}
+
+function updateTicketPreview() {
+    const date = dateInput.value;
+    const time = timeInput.value;
+    if (date && time) {
+        const day = new Date(date).toLocaleDateString('ru-RU', {
+            weekday: 'long', day: 'numeric', month: 'long'
+        });
+        ticketPreview.textContent = '🎟 ' + day + ' · ' + time;
+        ticketPreview.classList.remove('ready');
+        void ticketPreview.offsetWidth; // перезапуск анимации pop
+        ticketPreview.classList.add('ready');
+    } else if (date || time) {
+        ticketPreview.textContent = 'Почти готово... 😉';
+    } else {
+        ticketPreview.textContent = 'Выбери день и время 👆';
+    }
+}
+
+document.querySelectorAll('#day-chips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+        const d = new Date();
+        if (chip.dataset.day === 'sat') {
+            d.setDate(d.getDate() + ((6 - d.getDay() + 7) % 7 || 7));
+        } else {
+            d.setDate(d.getDate() + Number(chip.dataset.day));
+        }
+        dateInput.value = localISO(d);
+        selectChip(chip);
+        updateTicketPreview();
+    });
+});
+
+document.querySelectorAll('#time-chips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+        timeInput.value = chip.dataset.time;
+        selectChip(chip);
+        updateTicketPreview();
+    });
+});
+
+// ручной выбор в полях: обновляем превью и снимаем подсветку с чипсов
+[dateInput, timeInput].forEach(input => {
+    input.addEventListener('input', () => {
+        const row = input === dateInput ? '#day-chips' : '#time-chips';
+        document.querySelectorAll(row + ' .chip').forEach(c => c.classList.remove('selected'));
+        updateTicketPreview();
+    });
+});
 
 function showWindow(index) {
     if (index >= windows.length) return;
