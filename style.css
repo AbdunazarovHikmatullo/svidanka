@@ -1,31 +1,41 @@
+/* ===== Mobile First: базовые стили — для телефона ===== */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+html, body{
+    width: 100%;
 }
 body{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100dvh;
+    padding: 12px;
     background: linear-gradient(135deg, #ffe6f0, #fff5f8);
-    overflow: hidden;
+    overflow-x: hidden;
 }
+button{
+    touch-action: manipulation; /* убирает задержку/зум по двойному тапу */
+}
+
 .window{
     display: none;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    gap: 16px;
     width: 100%;
     max-width: 800px;
-    height: 700px;
-    max-height: 95vh;
-    border-radius: 40px;
+    min-height: calc(100dvh - 24px);
+    border-radius: 24px;
     box-shadow: 0px 1px 1px 2px #bfbfbf;
     background-color: #fff;
-    padding: 20px;
+    padding: 20px 14px;
     animation: appear 0.4s ease;
 }
 .window.active{
@@ -40,44 +50,49 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
 }
-.image-window img {
-    width: 300px;
-    height: 300px;
+.image-window img{
+    width: min(58vw, 220px);
+    aspect-ratio: 1 / 1;
+    height: auto;
     object-fit: cover;
     border-radius: 20px;
 }
 
 .text-window{
     text-align: center;
-    padding: 10px;
-    font-size: 1.5em;
+    padding: 0 6px;
     font-weight: bold;
 }
+.text-window h1{
+    font-size: clamp(1.3rem, 6vw, 2.2rem);
+}
 .text-window .hint{
-    font-size: 0.6em;
+    font-size: clamp(0.85rem, 3.5vw, 1rem);
     font-weight: normal;
     color: #999;
     margin-top: 8px;
 }
 .text-window .summary{
-    font-size: 0.7em;
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
     font-weight: normal;
     color: #e0559a;
     margin-top: 12px;
+    line-height: 1.5;
 }
 
 .button-window{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    padding: 10px;
-    gap: 30px;
+    gap: 16px;
+    width: 100%;
 }
 .btn{
-    padding: 1em 2em;
+    padding: 0.8em 1.6em;
     cursor: pointer;
-    font-size: 2em;
+    font-size: clamp(1.15rem, 5vw, 2rem);
+    font-weight: bold;
     border-radius: 40px;
     border: none;
     transition: transform 0.3s ease;
@@ -110,34 +125,35 @@ body{
     to{ transform: rotateY(360deg); }
 }
 
-/* Окно 3: сетка хотелок 2 колонки */
+/* ===== Окно хотелок: сетка 2 колонки ===== */
 .menu-window-grid{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 12px;
     width: 100%;
     max-width: 500px;
-    padding: 10px;
 }
 .menu-item{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 12px;
+    gap: 6px;
+    padding: 10px;
     border: 3px solid transparent;
-    border-radius: 20px;
+    border-radius: 18px;
     background-color: #f7f7f7;
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: clamp(0.95rem, 4vw, 1.15rem);
     font-weight: bold;
     transition: transform 0.15s ease, border-color 0.15s ease;
 }
 .menu-item img{
-    width: 130px;
-    height: 130px;
+    width: 100%;
+    max-width: 140px;
+    aspect-ratio: 1 / 1;
+    height: auto;
     object-fit: cover;
-    border-radius: 15px;
+    border-radius: 14px;
 }
 .menu-item:hover{
     transform: scale(1.05);
@@ -150,22 +166,54 @@ body{
     content: " ✅";
 }
 
-/* Окно 5: сетка мест 2x2 */
+/* ===== Окно даты и времени ===== */
+.datetime-window{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 400px;
+}
+.datetime-field{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-weight: bold;
+    color: #555;
+    font-size: clamp(0.95rem, 4vw, 1.1rem);
+}
+.datetime-field input{
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    border: 3px solid #eee;
+    border-radius: 16px;
+    background-color: #f7f7f7;
+    color: #333;
+    appearance: none;
+    -webkit-appearance: none;
+}
+.datetime-field input:focus{
+    outline: none;
+    border-color: rgb(25, 224, 25);
+    background-color: #e8ffe8;
+}
+
+/* ===== Окно места: сетка 2x2 ===== */
 .place-window-grid{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 12px;
     width: 100%;
     max-width: 500px;
-    padding: 10px;
 }
 .place-item{
-    padding: 20px;
+    padding: 16px 10px;
     border: 3px solid transparent;
-    border-radius: 20px;
+    border-radius: 18px;
     background-color: #f7f7f7;
     cursor: pointer;
-    font-size: 1.2em;
+    font-size: clamp(0.95rem, 4vw, 1.2rem);
     font-weight: bold;
     transition: transform 0.15s ease, border-color 0.15s ease;
 }
@@ -177,7 +225,7 @@ body{
     background-color: #e8ffe8;
 }
 
-/* Дрожание, если ничего не выбрано */
+/* ===== Дрожание, если ничего не выбрано ===== */
 .shake{
     animation: shake 0.4s ease;
 }
@@ -187,7 +235,7 @@ body{
     75%{ transform: translateX(10px); }
 }
 
-/* Летающие сердечки на финале */
+/* ===== Летающие сердечки на финале ===== */
 .heart{
     position: fixed;
     bottom: -50px;
@@ -203,21 +251,31 @@ body{
     }
 }
 
-@media (max-width: 600px){
+/* ===== Планшет и больше ===== */
+@media (min-width: 600px){
+    body{
+        padding: 20px;
+    }
     .window{
-        height: auto;
-        min-height: 90vh;
-        border-radius: 20px;
+        min-height: 0;
+        height: 700px;
+        max-height: 92vh;
+        justify-content: space-around;
+        gap: 0;
+        border-radius: 40px;
+        padding: 24px;
     }
     .image-window img{
-        width: 200px;
-        height: 200px;
+        width: 300px;
     }
-    .btn{
-        font-size: 1.4em;
+    .menu-window-grid,
+    .place-window-grid{
+        gap: 20px;
     }
-    .menu-item img{
-        width: 100px;
-        height: 100px;
+    .datetime-window{
+        flex-direction: row;
+    }
+    .datetime-field{
+        flex: 1;
     }
 }
