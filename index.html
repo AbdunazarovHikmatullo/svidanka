@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свидание? 💘</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Окно 1 -->
+    <div class="window active">
+        <div class="image-window">
+            <img src="./img/задумался.gif" alt="Думаю...">
+        </div>
+        <div class="text-window">
+            <h1>Слушай, а давай встречаться?</h1>
+        </div>
+        <div class="button-window">
+            <button class="btn btn-yes">Yes</button>
+            <button class="btn btn-no">No</button>
+        </div>
+    </div>
+
+    <!-- Окно 2 -->
+    <div class="window">
+        <div class="image-window">
+            <img src="./img/обиделся.jpeg" alt="Обиделся">
+        </div>
+        <div class="text-window">
+            <h1>А ты потом не передумаешь?</h1>
+        </div>
+        <div class="button-window">
+            <button class="btn btn-yes">Нет, конечно!</button>
+            <button class="btn btn-no">Передумаю</button>
+        </div>
+    </div>
+
+    <!-- Окно 3: меню хотелок (мультивыбор) -->
+    <div class="window">
+        <div class="text-window">
+            <h1>Выбирай! 😏</h1>
+            <p class="hint">Можно выбрать несколько</p>
+        </div>
+        <div class="menu-window-grid">
+            <button class="menu-item" data-wish="Суши 🍣">
+                <img src="./img/суши.jpeg" alt="Суши">
+                <span>Суши</span>
+            </button>
+            <button class="menu-item" data-wish="KFC 🍗">
+                <img src="./img/kfc-combo.jpeg" alt="KFC">
+                <span>KFC</span>
+            </button>
+            <button class="menu-item" data-wish="Мохито 🍹">
+                <img src="./img/Мохито.jpeg" alt="Мохито">
+                <span>Мохито</span>
+            </button>
+            <button class="menu-item" data-wish="Мороженое 🍦">
+                <img src="./img/Мороженное.jpg" alt="Мороженое">
+                <span>Мороженое</span>
+            </button>
+        </div>
+        <div class="button-window">
+            <button class="btn btn-yes" id="wishes-next">Хочу это!</button>
+        </div>
+    </div>
+
+    <!-- Окно 4 -->
+    <div class="window">
+        <div class="image-window">
+            <img src="./img/1Роза.jpeg" alt="Роза">
+        </div>
+        <div class="text-window">
+            <h1>Зачем тебе всё это? На цветочек 🌹</h1>
+        </div>
+        <div class="button-window">
+            <button class="btn btn-yes">Беру! 🥰</button>
+            <button class="btn btn-no">Не надо</button>
+        </div>
+    </div>
+
+    <!-- Окно 5: где встретимся -->
+    <div class="window">
+        <div class="image-window">
+            <img src="./img/Поцелуешь.jpeg" alt="Поцелуешь?">
+        </div>
+        <div class="text-window">
+            <h1>Где встретимся?</h1>
+        </div>
+        <div class="place-window-grid">
+            <button class="place-item" data-place="В парке 🌳">В парке 🌳</button>
+            <button class="place-item" data-place="В кафе ☕">В кафе ☕</button>
+            <button class="place-item" data-place="В кино 🎬">В кино 🎬</button>
+            <button class="place-item" data-place="Заберу тебя сам 🚗">Заберу тебя сам 🚗</button>
+        </div>
+        <div class="button-window">
+            <button class="btn btn-yes" id="place-next">Договорились!</button>
+        </div>
+    </div>
+
+    <!-- Окно 6: финал -->
+    <div class="window">
+        <div class="image-window">
+            <img src="./img/Приятно.jpeg" alt="Ура!">
+        </div>
+        <div class="text-window">
+            <h1>Жди меня, детка! 😘</h1>
+            <p class="summary" id="final-summary"></p>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
